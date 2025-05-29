@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import OpenAI from "openai";
+import { GoogleGenAI } from "@google/genai"; // Correct export name based on library documentation
 
-// Initialize OpenAI client
-// In production, you'd want to use environment variables for this
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY, // IMPORTANT: Use environment variables!
+
+
+// Initialize Google GenAI client
+const genai = new GoogleGenAI({
+  apiKey: process.env.GOOGLE_GENAI_API_KEY, // IMPORTANT: Use environment variables!
 });
 
 export async function POST(request: NextRequest) {
@@ -31,7 +32,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check for API key
-    if (!process.env.OPENAI_API_KEY) {
+    if (!process.env.GOOGLE_GENAI_API_KEY) {
       // If no API key, use a mock response for development
       return mockResponse(type, fullName, jobTitle, companyName, tone);
     }
@@ -49,26 +50,29 @@ export async function POST(request: NextRequest) {
       tone
     );
 
-    // Call OpenAI API
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4o-min",
-      messages: [
-        {
-          role: "system",
-          content:
-            "You are a professional writer specialized in creating job application materials.",
-        },
-        {
-          role: "user",
-          content: prompt,
-        },
-      ],
-      temperature: 0.7,
-      max_tokens: 1500,
+    // Call Google GenAI API
+            const characterCapacity = await getCharacterCapacity();
+    
+    async function getCharacterCapacity(): Promise<number> {
+      // Mock implementation for character capacity
+      // Replace this with actual logic to fetch character capacity if available
+      return 1000; // Example value
+    }
+
+    if (characterCapacity < 1000) {
+      return NextResponse.json(
+      { error: "Insufficient character capacity for generating content" },
+      { status: 400 }
+      );
+    }
+
+    const response = await genai.models.generateContent({
+      model: "gemini-2.0-flash", // Replace with the appropriate Google GenAI model
+      contents: prompt
     });
 
     // Extract the generated content
-    const generatedContent = completion.choices[0]?.message?.content || "";
+    const generatedContent = response.data || "";
 
     // Return the result
     return NextResponse.json({ content: generatedContent });
