@@ -28,7 +28,7 @@ export default function GeneratorPage() {
       }
       
       const data = await response.json();
-      setResult(data.content);
+      setResult(data.content || null);
     } catch (error) {
       console.error("Error generating content:", error);
     } finally {

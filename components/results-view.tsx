@@ -127,7 +127,7 @@ export function ResultsView({ result, isGenerating, type }: ResultsViewProps) {
             {result && (
               <>
                 {isEditing ? (
-                  <Button size="sm\" onClick={handleSaveEdit} variant="outline">
+                  <Button size="sm" onClick={handleSaveEdit} variant="outline">
                     <Check className="h-4 w-4 mr-1" />
                     Save
                   </Button>
@@ -185,7 +185,7 @@ export function ResultsView({ result, isGenerating, type }: ResultsViewProps) {
             <div className="flex-1 flex flex-col items-center justify-center text-center p-12 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-md">
               <div className="mb-4">
                 {type === "cover-letter" ? (
-                  <svg width="64\" height="64\" viewBox="0 0 24 24\" fill="none\" stroke="currentColor\" strokeWidth="1\" strokeLinecap="round\" strokeLinejoin="round\" className="mx-auto text-gray-400">
+                  <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="mx-auto text-gray-400">
                     <path d="M21 8V21H3V8"></path>
                     <path d="M1 3H23V8H1V3Z"></path>
                     <path d="M8 13H16"></path>
