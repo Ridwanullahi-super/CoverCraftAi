@@ -23,7 +23,7 @@ export default function RootLayout({
         <link
           rel="icon"
           type="image/x-icon"
-          href="@/images/covercraft_logo.png"
+          href="https://i.ibb.co/F4wy3k6G/Chat-GPT-Image-Jun-15-2025-12-15-24-PM-removebg-preview.png"
         />
       </head>
       <body className={inter.className}>

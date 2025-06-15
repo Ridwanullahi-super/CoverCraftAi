@@ -1,13 +1,16 @@
 const TermsOfService: React.FC = () => {
   return (
-    <div className="p-5 font-sans">
-      <h1 className="text-3xl font-bold mb-4">Terms of Service</h1>
-      <p className="mb-4">
-        Welcome to CraftCoverAI! By accessing or using our services, you agree
-        to comply with the following terms and conditions. These terms govern
-        your use of our application, which utilizes Gemini AI technology to
-        enhance functionality and user experience.
-      </p>
+    <div className="min-h-screen flex flex-col">
+      <header className="bg-gray-100 dark:bg-gray-950 py-6 px-4">
+        <div className="max-w-6xl mx-auto">
+          <p>
+            Welcome to CraftCoverAI! By accessing or using our services, you agree
+            to comply with the following terms and conditions. These terms govern
+            your use of our application, which utilizes Gemini AI technology to
+            enhance functionality and user experience.
+          </p>
+        </div>
+      </header>
 
       <h2 className="text-2xl font-semibold mb-3">1. Acceptance of Terms</h2>
       <p className="mb-4">

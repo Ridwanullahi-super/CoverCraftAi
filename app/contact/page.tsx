@@ -1,11 +1,11 @@
 "use client";
-
+import { stringify } from "flatted";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Home, Sparkles, Lock, FileText, Phone } from "lucide-react";
 import Link from "next/link";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
 import { useState } from "react";
+import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/react";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -32,7 +32,7 @@ export default function ContactPage() {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: stringify(formData),
       });
 
       const result = await response.json();
@@ -51,6 +51,128 @@ export default function ContactPage() {
 
   return (
     <main className="min-h-screen bg-gray-50 dark:bg-gray-950">
+      <header className="sticky top-0 z-50 w-full border-b bg-white dark:bg-gray-900">
+        <div className="container flex h-16 items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="text-xl font-bold px-4">CoverCraftAI</span>
+          </div>
+          <nav className="flex items-center gap-4 ">
+            <div className="hidden lg:flex flex-wrap items-center gap-4">
+              <Link
+                href="/"
+                className="inline-flex items-center gap-2 px-3 py-1 text-sm hover:bg-gray-100 rounded-md"
+              >
+                Home
+              </Link>
+              <Button
+                variant="ghost"
+                size="sm"
+                asChild
+                className="flex items-center gap-2 "
+              >
+                <Link href="/generator">
+                  <Sparkles className="h-5 w-5" />
+                  Generator
+                </Link>
+              </Button>
+              <Button variant="ghost" size="sm" asChild>
+                <Link
+                  href="/contact"
+                  className="flex items-center gap-2 text-blue-600"
+                >
+                  <Phone className="h-5 w-5" />
+                  Contact Us
+                </Link>
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                asChild
+                className="flex items-center gap-2"
+              >
+                <Link href="/privacy">
+                  <Lock className="h-5 w-5" />
+                  Privacy Policy
+                </Link>
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                asChild
+                className="flex items-center gap-2"
+              >
+                <Link href="/terms" className="flex items-center gap-2">
+                  <FileText className="h-5 w-5" />
+                  <span>Terms of Service</span>
+                </Link>
+              </Button>
+            </div>
+            <div className="lg:hidden">
+              <Menu>
+                <MenuButton className="p-2 rounded-md hover:bg-gray-100">
+                  <span className="sr-only">Open menu</span>
+                  <svg
+                    className="h-6 w-6 text-blue-600"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 6h16M4 12h16M4 18h16"
+                    />
+                  </svg>
+                </MenuButton>
+                <MenuItems className="absolute right-0 mt-2 w-48 origin-top-right bg-white dark:bg-gray-800 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <MenuItem>
+                    <Link
+                      href="/"
+                      className="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100"
+                    >
+                      Home
+                    </Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link
+                      href="/generator"
+                      className="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100"
+                    >
+                      Generator
+                    </Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link
+                      href="/contact"
+                      className="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100"
+                    >
+                      Contact Us  
+                    </Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link
+                      href="/privacy"
+                      className="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100"
+                    >
+                      Privacy Policy
+                    </Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link
+                      href="/terms"
+                      className="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100"
+                    >
+                      Terms of Service
+                    </Link>
+                  </MenuItem>
+                </MenuItems>
+              </Menu>
+            </div>
+          </nav>
+        </div>
+      </header>
       <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
         <div className="mb-6">
           <Button variant="ghost" size="sm" asChild className="mb-4">
@@ -134,10 +256,19 @@ export default function ContactPage() {
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className=" py-3 bg-slate-400 my-2 bg-roundedpy-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-400"
+                        className="py-3 bg-slate-400 my-2 rounded-lg px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-400"
                       >
                         {isSubmitting ? "Sending..." : "Send Message"}
                       </button>
+                      <p className="mt-4 text-sm text-gray-600 dark:text-gray-400">
+                        For urgent requests, email us directly at{" "}
+                        <a
+                          href="mailto:asimiyuridwan50@gmail.com"
+                          className="text-blue-500 hover:underline"
+                        >
+                          asimiyuridwan50@gmail.com
+                        </a>
+                      </p>
                     </div>
                   </form>
                   {responseMessage && <p>{responseMessage}</p>}
@@ -147,6 +278,40 @@ export default function ContactPage() {
           </div>
         </Tabs>
       </div>
+      <footer className="bg-gray-100 dark:bg-gray-950 py-8 px-4">
+        <ul className="flex justify-center space-x-6 pb-2">
+          <li>
+            <Link
+              href="/privacy"
+              className="text-black dark:text-blue-400 hover:underline"
+            >
+              Privacy Policy
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/terms"
+              className="text-black dark:text-blue-400 hover:underline"
+            >
+              Terms of Service
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/contact"
+              className="text-black dark:text-blue-400 hover:underline"
+            >
+              Contact Us
+            </Link>
+          </li>
+        </ul>
+        <hr />
+        <div className="max-w-6xl mx-auto text-center p-1">
+          <p className="text-gray-600 dark:text-gray-400">
+            © {new Date().getFullYear()} CoverCraft AI. All rights reserved.
+          </p>
+        </div>
+      </footer>
     </main>
   );
 }
