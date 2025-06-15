@@ -111,6 +111,23 @@ export default function Home() {
       
       {/* Footer */}
       <footer className="bg-gray-100 dark:bg-gray-950 py-8 px-4">
+        <ul className="">
+          <li className="text-left mb-4">
+            <Link href="/privacy" className="text-blue-600 dark:text-blue-400 hover:underline">
+              Privacy Policy
+            </Link>
+          </li>
+          <li className="text-left mb-4">
+            <Link href="/terms" className="text-blue-600 dark:text-blue-400 hover:underline">
+              Terms of Service
+            </Link>
+          </li>
+          <li className="text-left mb-4">
+            <Link href="/contact" className="text-blue-600 dark:text-blue-400 hover:underline">
+              Contact Us
+            </Link>
+          </li>
+        </ul>
         <div className="max-w-6xl mx-auto text-center">
           <p className="text-gray-600 dark:text-gray-400">
             © {new Date().getFullYear()} CoverCraft AI. All rights reserved.

@@ -13,6 +13,7 @@ export async function POST(request: NextRequest) {
     // Extract form data
     const fullName = formData.get("fullName") as string;
     const email = formData.get("email") as string;
+    const amount = formData.get("amount") as string | null;
     const phone = formData.get("phone") as string;
     const resumeText = formData.get("resumeText") as string;
     const jobTitle = formData.get("jobTitle") as string;
@@ -40,6 +41,7 @@ export async function POST(request: NextRequest) {
       type,
       fullName,
       email,
+      amount,
       phone,
       resumeText,
       jobTitle,
@@ -50,11 +52,10 @@ export async function POST(request: NextRequest) {
 
     const { text } = await genai.models.generateContent({
       model: "gemini-2.0-flash", // Replace with the appropriate Google GenAI model
-      contents: `${prompt} ${
-        type === "cover-letter"
+      contents: `${prompt} ${type === "cover-letter"
           ? "Must be no more than 250-300 words and formatted as a cover letter. no need to include contact information"
           : "Must be no more than 400-500 words and formatted as a job proposal."
-      }`,
+        }`,
       config: {
         // maxOutputTokens: 200, // Adjust based on your needs
         // temperature: 0.7, // Adjust for creativity vs. accuracy
@@ -86,6 +87,7 @@ function createPrompt(
   email: string | null,
   phone: string | null,
   resumeText: string,
+  amount: string | null,
   jobTitle: string,
   jobDescription: string,
   companyName: string | null,
@@ -104,37 +106,59 @@ function createPrompt(
 
   if (type === "cover-letter") {
     return `
-      Write a professional cover letter for ${fullName}${
-      contactInfo ? `\n${contactInfo}` : ""
-    } applying for the ${jobTitle} position at ${company}. instead of using [${contactInfo}], use the following format:
-    ${fullName}
-    ${email}
-    ${phone}
-    today's date formatted as "Month Day, Year"
+      Write a professional cover letter for ${fullName}, applying for the ${jobTitle} position at ${company}.
 
-  
-      Resume/Experience:
-      ${resumeText}
+Use the following header format:
+${fullName}  
+${email}  
+${phone}  
+${new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
 
-      Job Description:
-      ${jobDescription}
+Resume/Experience:  
+${resumeText}
 
-      The cover letter should be ${toneDescription}. Include a proper greeting, introduction, Must be no more than 250-300 words and formatted as a cover letter. no need to include contact information, highlighting relevant skills and experience, and a conclusion. Format it as a proper cover letter with appropriate spacing.
-    `;
+Job Description:  
+${jobDescription}
+
+The tone of the cover letter should be ${toneDescription}.
+
+Include:
+- A proper greeting (e.g., “Dear Hiring Manager” or use a name if available)
+- A strong opening/introduction that mentions the role
+- 1–2 concise body paragraphs highlighting relevant skills, experiences, and how they align with the job
+- A professional closing paragraph with enthusiasm and a call to action
+
+**Do not** include contact information again in the body.  
+Limit the total length to **250–300 words**. Format it as a proper cover letter with appropriate spacing and paragraph breaks.`
+
   } else {
     return `
-      Write a professional job proposal for ${fullName}${
-      contactInfo ? `\n${contactInfo}` : ""
-    } for the ${jobTitle} position at ${company}.
+      Write a professional job proposal for ${fullName}, applying for the ${jobTitle} position at ${company}.
 
-      Resume/Experience:
-      ${resumeText}
+Use the following header format:
+${fullName}  
+${email}  
+${phone}  
+${new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
 
-      Job Description:
-      ${jobDescription}
+Resume/Experience:  
+${resumeText}
 
-      The proposal should be ${toneDescription}. Include a brief introduction about yourself, explain why you're the right fit for the role by highlighting your relevant experience and skills, and describe what you can bring to ${company}. End with a call to action. Must be no more than 400-500 words and formatted as a job proposal.
-    `;
+Job Description:  
+${jobDescription}
+
+The tone of the proposal should be ${toneDescription}.
+
+Include:
+- A greeting and strong introduction
+- A summary of relevant experience and how it matches the role
+- Details on what the applicant will bring to ${company}
+${amount ? `- A clearly labeled section for **Expected Salary** or **Estimated Project Cost**:\n\n  **Amount**: ${amount}` : ""}
+- A conclusion with a professional call to action
+
+Ensure the proposal is well-formatted, limited to 400–500 words, with proper paragraph breaks and spacing.
+
+      `;
   }
 }
 

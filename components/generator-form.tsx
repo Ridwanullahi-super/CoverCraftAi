@@ -34,6 +34,7 @@ export function GeneratorForm({
     fullName: "",
     email: "",
     phone: "",
+    amount: "",
     resumeText: "",
     jobTitle: "",
     jobDescription: "",
@@ -201,6 +202,16 @@ export function GeneratorForm({
           value={formData.companyName}
           onChange={handleChange}
           placeholder="e.g., Acme Corporation"
+        />
+      </div>
+      <div>
+        <Label htmlFor="amount">Amount / Salary</Label>
+        <Input
+          id="amount"
+          name="amount"
+          value={formData.amount}
+          onChange={handleChange}
+          placeholder="e.g., $100,000"
         />
       </div>
 
