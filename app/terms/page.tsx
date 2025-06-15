@@ -109,7 +109,7 @@ export default function TermsOfServicePage() {
                   <MenuItem>
                     <Link
                       href="/"
-                      className="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100"
+                      className="block px-4 py-2 text-sm hover:bg-gray-100"
                     >
                       Home
                     </Link>
@@ -117,7 +117,7 @@ export default function TermsOfServicePage() {
                   <MenuItem>
                     <Link
                       href="/generator"
-                      className="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100"
+                      className="block px-4 py-2 text-sm  hover:bg-gray-100"
                     >
                       Generator
                     </Link>
@@ -125,7 +125,7 @@ export default function TermsOfServicePage() {
                   <MenuItem>
                     <Link
                       href="/contact"
-                      className="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100"
+                      className="block px-4 py-2 text-sm  hover:bg-gray-100"
                     >
                       Contact Us
                     </Link>
@@ -133,7 +133,7 @@ export default function TermsOfServicePage() {
                   <MenuItem>
                     <Link
                       href="/privacy"
-                      className="block px-4 py-2 text-sm text-blue-600 hover:bg-gray-100"
+                      className="block px-4 py-2 text-sm hover:bg-gray-100"
                     >
                       Privacy Policy
                     </Link>
