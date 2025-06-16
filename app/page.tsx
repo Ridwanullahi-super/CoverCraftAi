@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { FileText, Briefcase, FileCheck, Award, Clock, Zap, Home, Sparkles, Phone, Lock } from "lucide-react";
+import { FileText, Briefcase, FileCheck, Award, Clock, Zap, Home as HomeIcon, Sparkles, Phone, Lock } from "lucide-react";
 import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/react";
 
 export default function Home() {
@@ -17,6 +17,7 @@ export default function Home() {
                 <nav className="flex items-center gap-4">
                   <div className="hidden lg:flex flex-wrap items-center gap-4">
                   <Link href="/" className="inline-flex items-center gap-2 px-3 py-1 text-sm hover:bg-gray-100 rounded-md text-blue-600">
+                    <HomeIcon className="h-5 w-5" />
                     Home
                   </Link>
                   <Button variant="ghost" size="sm" asChild className="flex items-center gap-2">

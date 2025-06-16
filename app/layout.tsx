@@ -4,7 +4,8 @@ import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { Analytics } from "@vercel/analytics/next"
-const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "700"] });
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: "CoverCraft AI | Professional Cover Letters & Proposals",
